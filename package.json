@@ -3,7 +3,7 @@
   "displayName": "uni-code-highlight-xthk",
   "description": "vscode uni-app高亮代码块",
   "publisher": "wei-xin-1205",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "engines": {
     "vscode": "^1.87.0"
   },
