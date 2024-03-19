@@ -42,8 +42,7 @@ export class Ranges {
   hasPlatformList() {
     if (Ranges.platformList.length)
       commands.executeCommand('setContext', 'uni.hasComment', true)
-    else
-      commands.executeCommand('setContext', 'uni.hasComment', false)
+    else commands.executeCommand('setContext', 'uni.hasComment', false)
   }
 
   getVscodeRange() {

@@ -13,8 +13,7 @@ export function parsePlatform(platform: string, commentPre: string): string[] {
   if (platform.includes('||'))
     platforms = platform.split('||').map(item => item.trim())
 
-  else
-    platforms = [platform.trim()]
+  else platforms = [platform.trim()]
 
   return platforms
 }

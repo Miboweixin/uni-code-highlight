@@ -3,7 +3,7 @@
   "displayName": "uni-code-highlight-xthk",
   "description": "vscode uni-app高亮代码块",
   "publisher": "wei-xin-1205",
-  "version": "1.0.1",
+  "version": "1.0.4",
   "engines": {
     "vscode": "^1.87.0"
   },
@@ -14,10 +14,14 @@
     "type": "git",
     "url": "https://github.com/Miboweixin/uni-code-highlight"
   },
-  "activationEvents": [],
-  "main": "./out/extension.js",
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./dist/index.js",
   "icon": "icon.png",
   "scripts": {
+    "build": "tsup src/index.ts --external vscode",
+    "dev": "nr build --watch",
     "publish:vscode": "vsce package --no-dependencies && vsce publish --no-dependencies",
     "publish:openvsx": "ovsx publish",
     "vscode:prepublish": "pnpm run compile",
@@ -40,9 +44,9 @@
       }
     ],
     "configuration": {
-      "title": "uni-highlight-xthk",
+      "title": "uni-code-highlight-xthk",
       "properties": {
-        "uni-highlight-xthk.platform": {
+        "uni-code-highlight-xthk.platform": {
           "type": "object",
           "default": {},
           "description": "自定义平台高亮"
