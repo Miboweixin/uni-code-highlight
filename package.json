@@ -3,7 +3,7 @@
   "displayName": "uni-code-highlight-xthk",
   "description": "vscode uni-app高亮代码块",
   "publisher": "wei-xin-1205",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "engines": {
     "vscode": "^1.87.0"
   },
@@ -25,6 +25,7 @@
     "publish:vscode": "vsce package --no-dependencies && vsce publish --no-dependencies",
     "publish:openvsx": "ovsx publish",
     "vscode:prepublish": "pnpm run compile",
+    "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
     "pretest": "pnpm run compile && pnpm run lint",
     "lint": "eslint src --ext ts",
