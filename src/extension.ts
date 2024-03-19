@@ -1,26 +1,36 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
-import * as vscode from 'vscode';
+import type { ExtensionContext } from 'vscode';
+import { commands, languages, window, workspace } from 'vscode';
+import { Ranges } from './getVscodeRange';
+import { CommentFoldingRangeProvider } from './CommentFoldingRangeProvider';
+import { foldOtherPlatformComment } from './foldOtherPlatformComment';
+import { patterns } from './constants';
 
+
+function setupEventListeners() {
+	window.onDidChangeActiveTextEditor(() => new Ranges());
+	workspace.onDidChangeTextDocument(() => new Ranges());
+}
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
-export function activate(context: vscode.ExtensionContext) {
+export function activate(context: ExtensionContext) {
+	new Ranges();
+	setupEventListeners();
 
-	// Use the console to output diagnostic information (console.log) and errors (console.error)
-	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "uni-code-highlight-xthk" is now active!');
-
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with registerCommand
-	// The commandId parameter must match the command field in package.json
-	let disposable = vscode.commands.registerCommand('uni-code-highlight-xthk.helloWorld', () => {
-		// The code you place here will be executed every time your command is executed
-		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World from uni-code-highlight-xthk!');
-	});
-
-	context.subscriptions.push(disposable);
+	context.subscriptions.push(
+		languages.registerFoldingRangeProvider(
+			patterns,
+			new CommentFoldingRangeProvider(),
+		),
+		commands.registerCommand('uni.comment.reload', () => {
+			new Ranges();
+		}),
+		commands.registerCommand('uni.comment.fold-other-platform', () => {
+			foldOtherPlatformComment();
+		}),
+	);
 }
 
 // This method is called when your extension is deactivated
-export function deactivate() {}
+export function deactivate() { }
