@@ -1,34 +1,31 @@
 import type {
   FoldingRangeProvider,
   ProviderResult,
-} from 'vscode'
+} from 'vscode';
 
-import { FoldingRange, FoldingRangeKind } from 'vscode'
-import { Ranges } from './getVscodeRange'
+import { FoldingRange, FoldingRangeKind } from 'vscode';
+import { Ranges } from './getVscodeRange';
 
 export class CommentFoldingRangeProvider implements FoldingRangeProvider {
   provideFoldingRanges(): ProviderResult<FoldingRange[]> {
-    const { platformInfo } = Ranges
-    if (!platformInfo.length)
-      return []
+    const { platformInfo } = Ranges;
+    if (!platformInfo.length) { return []; }
 
-    const foldingRanges: FoldingRange[] = []
-    const startLines = []
-    const endLines = []
-    const stack = []
+    const foldingRanges: FoldingRange[] = [];
+    const startLines = [];
+    const endLines = [];
+    const stack = [];
 
     for (let i = 0; i < platformInfo.length; i++) {
-      const { row, type, line } = platformInfo[i] ?? {}
-      if (type !== 'prefix')
-        continue
+      const { row, type, line } = platformInfo[i] ?? {};
+      if (type !== 'prefix') { continue; }
       if (row === '#ifdef' || row === '#ifndef') {
-        startLines.push(line - 1)
-        stack.push(startLines.length - 1)
+        startLines.push(line - 1);
+        stack.push(startLines.length - 1);
       }
       else if (row === '#endif') {
-        const index = stack.pop()
-        if (index !== undefined)
-          endLines[index] = line - 1
+        const index = stack.pop();
+        if (index !== undefined) { endLines[index] = line - 1; }
       }
     }
 
@@ -39,9 +36,9 @@ export class CommentFoldingRangeProvider implements FoldingRangeProvider {
           endLines[i],
           FoldingRangeKind.Region,
         ),
-      )
+      );
     }
 
-    return foldingRanges
+    return foldingRanges;
   }
 }

@@ -1,11 +1,12 @@
-import { workspace } from 'vscode'
-import { isObject } from '@antfu/utils'
+import { workspace } from 'vscode';
+import { isObject } from '@antfu/utils';
 
-const config = workspace.getConfiguration('uni-code-highlight-xthk').get('platform')
-const SETTING = isObject(config) ? config : {}
+const config = workspace.getConfiguration('uni-code-highlight-xthk').get('platform');
+const prefix = workspace.getConfiguration('uni-code-highlight-xthk').get('prefix');
+const SETTING = isObject(config) ? config : {};
 
 export const HIGHTLIGHT_COLOR = {
-  prefix: '#859900',
+  prefix: prefix || '#859900',
   platform: Object.assign(
     {
       'VUE3': '#41b883',
@@ -35,9 +36,9 @@ export const HIGHTLIGHT_COLOR = {
     },
     SETTING,
   ),
-}
+};
 
-export const PLATFORM_LIST = Object.keys(HIGHTLIGHT_COLOR.platform) as Platform[]
-export const COMMENT_PRE = ['//', '/*', '<!--']
+export const PLATFORM_LIST = Object.keys(HIGHTLIGHT_COLOR.platform) as Platform[];
+export const COMMENT_PRE = ['//', '/*', '<!--'];
 
-export type Platform = keyof typeof HIGHTLIGHT_COLOR.platform
+export type Platform = keyof typeof HIGHTLIGHT_COLOR.platform;

@@ -1,18 +1,17 @@
-import type { Platform } from './constants'
-import { HIGHTLIGHT_COLOR } from './constants'
-import { parseComment } from './parseComment'
+import type { Platform } from './constants';
+import { HIGHTLIGHT_COLOR } from './constants';
+import { parseComment } from './parseComment';
 
 export function getPlatformInfo(code: string): PlatformInfo[] {
-  const commentAST = parseComment(code)
+  const commentAST = parseComment(code);
 
-  if (!commentAST)
-    return []
+  if (!commentAST) { return []; }
 
-  const platformInfos = []
+  const platformInfos = [];
   for (let i = 0; i < commentAST.length; i++) {
-    const item = commentAST[i]
-    const { start, end, type, row, line } = item
-    const color = HIGHTLIGHT_COLOR.platform[row as Platform]
+    const item = commentAST[i];
+    const { start, end, type, row, line } = item;
+    const color = HIGHTLIGHT_COLOR.platform[row as Platform];
 
     if (type === 'prefix') {
       platformInfos.push({
@@ -21,7 +20,7 @@ export function getPlatformInfo(code: string): PlatformInfo[] {
         type,
         row,
         line,
-      })
+      });
     }
     else if (type === 'platform' && color) {
       platformInfos.push({
@@ -31,7 +30,7 @@ export function getPlatformInfo(code: string): PlatformInfo[] {
         color,
         line,
         row,
-      })
+      });
     }
     else if (type === 'platform' && !color) {
       platformInfos.push({
@@ -39,10 +38,10 @@ export function getPlatformInfo(code: string): PlatformInfo[] {
         end,
         type: 'unPlatform',
         row,
-      })
+      });
     }
   }
-  return platformInfos as unknown as PlatformInfo[]
+  return platformInfos as unknown as PlatformInfo[];
 }
 
 export interface PlatformInfo {

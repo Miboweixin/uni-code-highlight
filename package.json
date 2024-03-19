@@ -25,7 +25,6 @@
     "publish:vscode": "vsce package --no-dependencies && vsce publish --no-dependencies",
     "publish:openvsx": "ovsx publish",
     "vscode:prepublish": "pnpm run compile",
-    "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
     "pretest": "pnpm run compile && pnpm run lint",
     "lint": "eslint src --ext ts",
@@ -50,6 +49,11 @@
           "type": "object",
           "default": {},
           "description": "自定义平台高亮"
+        },
+        "uni-code-highlight-xthk.prefix": {
+          "type": "string",
+          "default": "",
+          "description": "自定义#if注释颜色"
         }
       }
     },

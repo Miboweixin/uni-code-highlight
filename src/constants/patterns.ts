@@ -14,13 +14,13 @@ const fileExtensions = [
   '.scss',
   '.sass',
   '.json',
-]
+];
 
 function createFilePattern(extension: string) {
   return {
     pattern: `**/*${extension}`,
     scheme: 'file',
-  }
+  };
 }
 
-export const patterns = fileExtensions.map(createFilePattern)
+export const patterns = fileExtensions.map(createFilePattern);
